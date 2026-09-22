@@ -66,7 +66,7 @@ export function shell(route: Route, inner: string): string {
       <div class="wrap header-inner">
         <a class="brand" href="${url("/")}">
           <span class="logo-crop logo-crop-sm">
-            <img src="${asset("logo.jpg")}" alt="" width="1168" height="784" />
+            <img src="${asset("logo.png")}" alt="" width="1400" height="1400" />
           </span>
           <span class="brand-name">Studio Gulch</span>
         </a>
@@ -191,7 +191,7 @@ export function homePage(): { title: string; html: string } {
       <div class="wrap page" data-page="home">
         <div class="home-intro">
           <div class="logo-crop">
-            <img src="${asset("logo.jpg")}" alt="" width="1168" height="784" />
+            <img src="${asset("logo.png")}" alt="" width="1400" height="1400" />
           </div>
           <div class="home-copy">
             <h1>Studio Gulch</h1>

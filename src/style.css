@@ -168,14 +168,13 @@ main {
   text-decoration-thickness: 1px;
 }
 
-/* The logo file is a wide black field. Crop to the mark; the file is unchanged.
-   Ink box with 20px pad inside 1168×784: x 364–803, y 151–602 (439×451).
-   Header uses .logo-crop-sm. The hero size is only .home-intro .logo-crop. */
+/* Square mark in public/logo.png. Header uses .logo-crop-sm.
+   The hero size is only .home-intro .logo-crop. */
 .logo-crop {
   display: block;
   position: relative;
   width: clamp(8.75rem, 42vw, 13rem);
-  aspect-ratio: 439 / 451;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   flex: none;
 }
@@ -185,12 +184,10 @@ main {
 }
 
 .logo-crop img {
-  position: absolute;
-  width: calc(1168 / 439 * 100%);
-  max-width: none;
-  height: auto;
-  left: calc(-364 / 439 * 100%);
-  top: calc(-151 / 451 * 100%);
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   mix-blend-mode: screen;
 }
 
