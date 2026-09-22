@@ -29,9 +29,9 @@ jobs:
         run: npm ci
       - name: Build
         env:
-          # Project-page URL is https://<user>.github.io/<repo>/.
-          # For a custom domain at the root, set this to "/" instead.
-          VITE_BASE: /${{ github.event.repository.name }}/
+          # studiogulch.com is served from the domain root.
+          # A project page at /<repo>/ would need this set to /<repo>/.
+          VITE_BASE: /
         run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

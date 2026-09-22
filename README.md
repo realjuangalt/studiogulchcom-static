@@ -2,7 +2,7 @@
 
 Static site for Studio Gulch, an AI media studio. The stack is Vite and TypeScript. `npm run build` writes a `dist/` folder that GitHub Pages can host with no server.
 
-Repository: [realjuangalt/studiogulchcom-static](https://github.com/realjuangalt/studiogulchcom-static). A custom domain (`studiogulch.com`) would be served from the site root. The GitHub project page is `https://realjuangalt.github.io/studiogulchcom-static/`.
+Repository: [realjuangalt/studiogulchcom-static](https://github.com/realjuangalt/studiogulchcom-static). The public site is [studiogulch.com](https://studiogulch.com).
 
 ## Run locally
 
@@ -26,9 +26,9 @@ npm run preview
 
 Pushing `main` or `master` runs `.github/workflows/pages.yml`. That workflow builds `dist/` and deploys it with GitHub Actions. In the repository settings, Pages has to use **GitHub Actions** as the source (not the branch root — the root is the Vite project, not the built site).
 
-The workflow sets `VITE_BASE` to `/<repository-name>/`, so assets and routes match a project page such as `https://realjuangalt.github.io/studiogulchcom-static/`. Local `npm run dev` and `npm run build` leave the base at `/`.
+The workflow sets `VITE_BASE` to `/` so assets and routes match `studiogulch.com`. Local `npm run dev` and `npm run build` use the same root base. The custom domain is saved in the repository Pages settings. This deploy does not use a `CNAME` file.
 
-For `studiogulch.com` at the domain root, change that workflow env to `VITE_BASE: /` and rebuild. A `CNAME` file is not included; add `studiogulch.com` on the published site when the domain is ready.
+`https://realjuangalt.github.io/studiogulchcom-static/` will not load assets while the base is `/`. To publish only as a project page again, set `VITE_BASE` in the workflow to `/studiogulchcom-static/`.
 
 Routes are real paths (`/work`, `/work/mile-marker`, `/people/juan-galt`, `/studio`). The production build copies `index.html` to `dist/404.html`. GitHub Pages serves that file when a direct visit does not match a file, and it leaves the URL in place, so the router can read the path.
 
