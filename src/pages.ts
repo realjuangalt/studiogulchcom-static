@@ -195,7 +195,7 @@ export function homePage(): { title: string; html: string } {
           </div>
           <div class="home-copy">
             <h1>Studio Gulch</h1>
-            <p class="studio-line">An AI media studio — ads, shorts, and other cuts.</p>
+            <p class="studio-line">An AI media studio — short films, publicity, and other cuts.</p>
           </div>
         </div>
         ${recent}
@@ -355,8 +355,8 @@ export function studioPage(): { title: string; html: string } {
           <h1>Studio</h1>
         </header>
         <div class="prose">
-          <p>Studio Gulch is an AI media studio. The pictures are generated, then finished as things people actually watch: advertisements, shorts, and other cuts.</p>
-          <p>The studio works with advertisers who want an AI ad, and it makes work that can sit in a film competition.</p>
+          <p>Studio Gulch is an AI media studio. The pictures are generated, then finished as things people actually watch: short films, publicity, and other cuts.</p>
+          <p>The studio makes publicity for brands and work that can sit in a film competition.</p>
           <p>Juan Galt founded the studio. Elli Satoshi collaborates on the work.</p>
         </div>
         <section class="studio-block">
