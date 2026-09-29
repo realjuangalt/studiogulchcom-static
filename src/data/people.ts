@@ -17,15 +17,15 @@ export const people: Person[] = [
     id: "elli-satoshi",
     slug: "elli-satoshi",
     name: "Elli Satoshi",
-    studioRole: "Collaborator",
-    summary: "Elli Satoshi collaborates with Studio Gulch.",
+    studioRole: "Producer",
+    summary: "Elli Satoshi produces with Studio Gulch.",
     links: [{ label: "X", href: "https://x.com/ellitoshi21" }],
   },
   {
     id: "duityors",
     slug: "duityors",
     name: "Duityors",
-    studioRole: "Collaborator",
+    studioRole: "Editor",
     links: [
       { label: "Instagram", href: "https://www.instagram.com/duityors/" },
     ],

@@ -325,23 +325,32 @@ export function personPage(person: Person): { title: string; html: string } {
   };
 }
 
+function personListItem(person: Person): string {
+  const role = person.studioRole
+    ? `<span>${esc(person.studioRole)}</span>`
+    : "";
+  const name = person.slug
+    ? `<a href="${url(`/people/${person.slug}`)}">${esc(person.name)}</a>`
+    : esc(person.name);
+  return `<li>${name}${role}</li>`;
+}
+
 export function studioPage(): { title: string; html: string } {
   const people = profilePeople();
   const socials = liveSocials();
-  const peopleList =
-    people.length === 0
+  const founders = people.filter((person) => person.studioRole === "Founder");
+  const collaborators = people.filter(
+    (person) => person.studioRole !== "Founder",
+  );
+  const founderList =
+    founders.length === 0
       ? ""
-      : `<ul class="people">${people
-          .map((person) => {
-            const role = person.studioRole
-              ? `<span>${esc(person.studioRole)}</span>`
-              : "";
-            const name = person.slug
-              ? `<a href="${url(`/people/${person.slug}`)}">${esc(person.name)}</a>`
-              : esc(person.name);
-            return `<li>${name}${role}</li>`;
-          })
-          .join("")}</ul>`;
+      : `<ul class="people">${founders.map(personListItem).join("")}</ul>`;
+  const collaboratorList =
+    collaborators.length === 0
+      ? ""
+      : `<h3 class="section-label">Collaborators</h3>
+          <ul class="people">${collaborators.map(personListItem).join("")}</ul>`;
   const socialBlock =
     socials.length === 0
       ? ""
@@ -363,7 +372,8 @@ export function studioPage(): { title: string; html: string } {
         </div>
         <section class="studio-block">
           <h2 class="section-label">People</h2>
-          ${peopleList}
+          ${founderList}
+          ${collaboratorList}
         </section>
         ${socialBlock}
       </div>
