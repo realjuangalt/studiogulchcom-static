@@ -189,13 +189,16 @@ export function homePage(): { title: string; html: string } {
     title: "Studio Gulch",
     html: `
       <div class="wrap page" data-page="home">
-        <div class="home-intro">
-          <div class="logo-crop">
-            <img src="${asset("logo.png")}" alt="" width="1400" height="1400" />
-          </div>
-          <div class="home-copy">
-            <h1>Studio Gulch</h1>
-            <p class="studio-line">Made with machines. Cut like film.</p>
+        <div class="home-intro home-intro-reveal">
+          <div data-reveal-mount></div>
+          <div class="reveal-fallback">
+            <div class="logo-crop">
+              <img src="${asset("logo.png")}" alt="" width="1400" height="1400" />
+            </div>
+            <div class="home-copy">
+              <h1>Studio Gulch</h1>
+              <p class="studio-line">Made with machines. Cut like film.</p>
+            </div>
           </div>
         </div>
         ${recent}

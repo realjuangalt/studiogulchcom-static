@@ -14,6 +14,19 @@ import {
 import { locationParts } from "./url.ts";
 import "./style.css";
 
+let revealMod: typeof import("./reveal/mount.ts") | null = null;
+
+async function mountRevealIfHome(isHome: boolean): Promise<void> {
+  if (!isHome) {
+    revealMod?.unmountHomeReveal();
+    return;
+  }
+  revealMod = await import("./reveal/mount.ts");
+  revealMod.unmountHomeReveal();
+  const host = document.querySelector<HTMLElement>(".home-intro-reveal");
+  if (host) await revealMod.mountHomeReveal(host);
+}
+
 const app = document.querySelector<HTMLElement>("#app");
 if (!app) throw new Error("Missing #app");
 
@@ -44,6 +57,8 @@ function render(scroll: boolean): void {
   const page = view(route);
   document.title = page.title;
   app!.innerHTML = shell(route, page.html);
+  void mountRevealIfHome(route.page === "home");
+
   if (!scroll) return;
   window.scrollTo(0, 0);
   const heading = document.querySelector("#main h1");
