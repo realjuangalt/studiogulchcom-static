@@ -338,19 +338,10 @@ function personListItem(person: Person): string {
 export function studioPage(): { title: string; html: string } {
   const people = profilePeople();
   const socials = liveSocials();
-  const founders = people.filter((person) => person.studioRole === "Founder");
-  const collaborators = people.filter(
-    (person) => person.studioRole !== "Founder",
-  );
-  const founderList =
-    founders.length === 0
+  const peopleList =
+    people.length === 0
       ? ""
-      : `<ul class="people">${founders.map(personListItem).join("")}</ul>`;
-  const collaboratorList =
-    collaborators.length === 0
-      ? ""
-      : `<h3 class="section-label">Collaborators</h3>
-          <ul class="people">${collaborators.map(personListItem).join("")}</ul>`;
+      : `<ul class="people">${people.map(personListItem).join("")}</ul>`;
   const socialBlock =
     socials.length === 0
       ? ""
@@ -372,8 +363,7 @@ export function studioPage(): { title: string; html: string } {
         </div>
         <section class="studio-block">
           <h2 class="section-label">People</h2>
-          ${founderList}
-          ${collaboratorList}
+          ${peopleList}
         </section>
         ${socialBlock}
       </div>
