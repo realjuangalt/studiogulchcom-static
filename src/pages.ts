@@ -358,10 +358,8 @@ export function studioPage(): { title: string; html: string } {
           <h1>Studio</h1>
         </header>
         <div class="prose">
-          <p>Made with machines. Cut like film.</p>
-          <p>Studio Gulch is an AI media studio. Short films, publicity, and other cuts.</p>
-          <p>The studio makes publicity for brands and work that can sit in a film competition.</p>
-          <p>Juan Galt founded the studio. Elli Satoshi collaborates on the work.</p>
+          <p>Studio Gulch is a digital media studio that creates products across a wide range of media formats. It is structured as a laboratory that builds its own tools from the best technologies available, including but not limited to AI.</p>
+          <p>Studio Gulch collaborates with artists of all kinds to create high quality art and content, made with machines, cut like film.</p>
         </div>
         <section class="studio-block">
           <h2 class="section-label">People</h2>
