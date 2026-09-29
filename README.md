@@ -66,4 +66,4 @@ The site is set in Julius Sans One (LatinoType), self-hosted from `src/fonts/`. 
 
 ## Home mark reveal
 
-The home hero randomly plays one of four artist logo reveals (Ink, Signal, Gulch, Cut). It autoplays once with sound off. A small **Sound** control in the corner turns audio on and replays. Mobile uses the 1:1 stage; wider viewports use 16:9. `prefers-reduced-motion` keeps the static logo. The engine lives in `src/reveal/` and loads only on the home page (Three.js only when Gulch is chosen).
+The home hero randomly plays one of four artist logo reveals (Ink, Signal, Gulch, Cut). It autoplays once with sound off. Corner controls: **∞** plays another reveal; the speaker icon turns audio on and replays. Mobile uses the 1:1 stage; wider viewports use 16:9. `prefers-reduced-motion` keeps the static logo. The engine lives in `src/reveal/` and loads only on the home page (Three.js only when Gulch is chosen).

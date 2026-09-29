@@ -226,25 +226,68 @@
   );
 }
 
-.reveal-sound {
-  appearance: none;
+.reveal-controls {
   position: absolute;
   z-index: 4;
   right: 0.65rem;
   bottom: 0.65rem;
-  margin: 0;
-  padding: 0.35rem 0.55rem;
-  border: 1px solid rgba(243, 243, 241, 0.28);
-  background: rgba(0, 0, 0, 0.55);
-  color: rgba(243, 243, 241, 0.78);
-  font: inherit;
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
 }
 
-.reveal-sound:hover,
+.reveal-ctrl {
+  appearance: none;
+  box-sizing: border-box;
+  margin: 0;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(243, 243, 241, 0.28);
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(243, 243, 241, 0.72);
+  font: inherit;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.reveal-next {
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.reveal-sound .icon-speaker {
+  width: 0.95rem;
+  height: 0.95rem;
+  display: block;
+}
+
+.reveal-sound .wave {
+  opacity: 0.35;
+}
+
+.reveal-sound .wave-2,
+.reveal-sound[aria-pressed="true"] .mute {
+  display: none;
+}
+
+.reveal-sound .mute {
+  display: block;
+}
+
+.reveal-sound[aria-pressed="true"] .wave {
+  opacity: 1;
+  display: block;
+}
+
+.reveal-sound[aria-pressed="true"] .wave-2 {
+  display: block;
+  opacity: 0.85;
+}
+
+.reveal-ctrl:hover,
 .reveal-sound[aria-pressed="true"] {
   color: #f3f3f1;
   border-color: rgba(243, 243, 241, 0.7);
