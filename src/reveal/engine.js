@@ -413,9 +413,18 @@ function resetMark(){maskC.setAttribute('r',2000);cells.forEach(c=>c.el.setAttri
   outl.setAttribute('opacity',0);ringHead.setAttribute('opacity',0);nibDot.setAttribute('opacity',0);svg.style.filter='';svg.style.opacity=0;cam.style.transform='';setMask(null)}
 function stopRun(){if(!run)return;cancelAnimationFrame(run.raf);run.dir.teardown&&run.dir.teardown();
   if(run.bus&&A.ctx){const b=run.bus;b.gain.setTargetAtTime(0,A.ctx.currentTime,.03);setTimeout(()=>b.disconnect(),1200)}run=null}
-function resetStage(){stage.classList.add('instant');stage.classList.remove('locked');resetMark();
+function resetStage(){
+  stage.classList.add('instant');
+  stage.classList.remove('locked');
+  resetMark();
   const c=cv.getContext('2d');c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,cv.width,cv.height);
-  cv.style.opacity=0;glWrap.style.opacity=0;grain.style.opacity=0;flash.style.opacity=0;flare.style.opacity=0;void stage.offsetWidth;stage.classList.remove('instant')}
+  cv.style.opacity=0;glWrap.style.opacity=0;grain.style.opacity=0;flash.style.opacity=0;flare.style.opacity=0;
+  // Force type back to the hidden resting state while transitions are disabled.
+  word?.querySelectorAll('span').forEach((s)=>{s.style.opacity='';s.style.filter='';s.style.transform='';});
+  const tag=stage.querySelector('.tag');if(tag){tag.style.opacity='';}
+  void stage.offsetWidth;
+  stage.classList.remove('instant');
+}
 function scoreSound(dir,bus,T0){dir.sound(bus,T0);if(dir.padGain!==0)pad(bus,T0+dir.outro,4.2,dir.padGain||.1);for(let k=0;k<12;k++)if(k!==6){const tt=T0+dir.outro+.75+k*.055;if(dir.bubbles)bubble(bus,tt,{f:1500+k*90,g:.007,d:.05,rise:.6,p:(k-6)/9});else tick(bus,tt,2400+k*140,.016)}}
 async function play(i){
   const my=++seq;cur=i;updateUI();stopRun();resetStage();const _pb=$('#playbtn'); if(_pb) _pb.hidden=true;

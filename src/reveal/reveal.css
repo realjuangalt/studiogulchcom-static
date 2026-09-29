@@ -140,16 +140,21 @@
   filter: blur(10px);
   transform: translateY(0.4em) scale(1.35);
   transition:
-    opacity 0.9s ease,
-    filter 0.9s ease,
-    transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-  transition-delay: calc(var(--i) * 55ms + 0.75s);
+    opacity 0.35s ease,
+    filter 0.35s ease,
+    transform 0.35s ease;
+  transition-delay: 0s;
 }
 
 .locked .word span {
   opacity: 1;
   filter: blur(0);
   transform: none;
+  transition:
+    opacity 0.9s ease,
+    filter 0.9s ease,
+    transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: calc(var(--i) * 55ms + 0.75s);
 }
 
 .tag {
@@ -158,7 +163,8 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0;
-  transition: opacity 1.4s ease 1.9s;
+  transition: opacity 0.25s ease;
+  transition-delay: 0s;
 }
 
 #stage.sq .tag {
@@ -173,6 +179,13 @@
 
 .locked .tag {
   opacity: 1;
+  transition: opacity 1.4s ease 1.9s;
+}
+
+/* Used by resetStage() so type/mark snap off before a replay, not ease out on the enter delays. */
+.instant,
+.instant * {
+  transition: none !important;
 }
 
 .flash {
