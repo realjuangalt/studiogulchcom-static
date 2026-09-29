@@ -21,6 +21,15 @@ export const people: Person[] = [
     summary: "Elli Satoshi collaborates with Studio Gulch.",
     links: [{ label: "X", href: "https://x.com/ellitoshi21" }],
   },
+  {
+    id: "duityors",
+    slug: "duityors",
+    name: "Duityors",
+    studioRole: "Collaborator",
+    links: [
+      { label: "Instagram", href: "https://www.instagram.com/duityors/" },
+    ],
+  },
 ];
 
 export function personById(id: string): Person | undefined {
