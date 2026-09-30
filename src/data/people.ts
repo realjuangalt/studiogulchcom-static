@@ -56,3 +56,5 @@ export function personBySlug(slug: string): Person | undefined {
 export function profilePeople(): Person[] {
   return people.filter((person) => person.slug);
 }
+
+/* live-verify cache bust 2026-09-30T04:30:13Z */
