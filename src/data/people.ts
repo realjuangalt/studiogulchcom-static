@@ -39,7 +39,7 @@ export const people: Person[] = [
   },
 ];
 
-/** Old people slugs → current slug (client router rewrites the URL). */
+/** Old people slugs → current slug (client router rewrites /people/duityors → Camilo). */
 export const peopleSlugAliases: Record<string, string> = {
   duityors: "camilo-fique-morales",
 };
