@@ -11,7 +11,7 @@ import {
   workIndexPage,
   type Route,
 } from "./pages.ts";
-import { locationParts } from "./url.ts";
+import { locationParts, url } from "./url.ts";
 import "./style.css";
 
 let revealMod: typeof import("./reveal/mount.ts") | null = null;
@@ -53,7 +53,14 @@ function view(route: Route): { title: string; html: string } {
 
 function render(scroll: boolean): void {
   const { pathname, search } = locationParts();
-  const route = matchRoute(pathname, search);
+  let route = matchRoute(pathname, search);
+  if (route.page === "person") {
+    const person = personBySlug(route.slug);
+    if (person?.slug && person.slug !== route.slug) {
+      history.replaceState(null, "", url(`/people/${person.slug}`));
+      route = { page: "person", slug: person.slug };
+    }
+  }
   const page = view(route);
   document.title = page.title;
   app!.innerHTML = shell(route, page.html);
