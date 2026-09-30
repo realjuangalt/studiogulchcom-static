@@ -30,6 +30,13 @@ export const people: Person[] = [
       { label: "Instagram", href: "https://www.instagram.com/duityors/" },
     ],
   },
+  {
+    id: "c001z0n3",
+    slug: "c001z0n3",
+    name: "C001Z0N3",
+    studioRole: "Artist",
+    links: [{ label: "X", href: "https://x.com/C001Z0N3" }],
+  },
 ];
 
 export function personById(id: string): Person | undefined {
