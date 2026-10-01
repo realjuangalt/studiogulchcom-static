@@ -14,13 +14,17 @@ export const works: Work[] = [
     kind: "Short",
     summary: "A square short from Studio Gulch. The cut lives on X.",
     description:
-      "Studio Gulch’s first published catalogue piece. A roughly fifty-four-second square short posted on X: Bitcoin figured as a tidal wave — force that can lift, and force that can take the ground out from under you.\n\nWatch the full cut on the studio’s X post. The still on this page is a frame from that video.",
+      "Studio Gulch’s first published catalogue piece. A roughly fifty-four-second square short posted on X: Bitcoin figured as a tidal wave — force that can lift, and force that can take the ground out from under you.\n\nWatch the full cut on the studio’s X post. The still on this page is from the piece’s design art.",
     year: "2026",
     sample: false,
     still: "/stills/bitcoin-tidal-wave.jpg",
     href: "https://x.com/StudioGulch/status/2105777341221794202",
     hrefLabel: "Watch on X",
-    credits: [{ personId: "juan-galt", role: "Director" }],
+    credits: [
+      { personId: "juan-galt", role: "Director" },
+      { personId: "elli-satoshi", role: "Producer" },
+      { personId: "duityors", role: "Editor" },
+    ],
   },
   {
     slug: "mile-marker",
