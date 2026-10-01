@@ -9,6 +9,32 @@ import type { Credit, Work } from "./types.ts";
  */
 export const works: Work[] = [
   {
+    slug: "bitcoin-toll-of-hormuz",
+    title: "Not everyone is prepared to pay the Bitcoin Toll of Hormuz...",
+    kind: "Short",
+    summary: "A square short from Studio Gulch. Watch on X or Instagram.",
+    description:
+      "Studio Gulch’s second published catalogue piece. A roughly two-minute square short posted on X and Instagram: Not everyone is prepared to pay the Bitcoin Toll of Hormuz.\n\nWatch the full cut on X or Instagram. The still on this page is a frame from the video.",
+    year: "2026",
+    sample: false,
+    still: "/stills/bitcoin-toll-of-hormuz.jpg",
+    links: [
+      {
+        label: "Watch on X",
+        href: "https://x.com/StudioGulch/status/2105803970472247468",
+      },
+      {
+        label: "Watch on Instagram",
+        href: "https://www.instagram.com/p/Dd-DLaStCwN/",
+      },
+    ],
+    credits: [
+      { personId: "juan-galt", role: "Director" },
+      { personId: "elli-satoshi", role: "Producer" },
+      { personId: "duityors", role: "Editor" },
+    ],
+  },
+  {
     slug: "bitcoin-tidal-wave",
     title: "Bitcoin is like a tidal wave...",
     kind: "Short",
