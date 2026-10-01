@@ -47,8 +47,8 @@ Edit `src/data/works.ts` and put real pieces first. `/work` defaults to publishe
 | `credits` | `{ personId, role, note? }`. `personId` matches an `id` in `src/data/people.ts`. The role is for this piece only. |
 | `still` | Optional. Put an image in `public/stills/` and set `"/stills/filename.jpg"`. If omitted, a drawn frame is used. |
 | `frame` | Optional placeholder when there is no still: `marker` or `switchback`. |
-| `href` | Optional external watch URL (for example an X post). |
-| `hrefLabel` | Optional label for `href` (defaults to `Watch on X`). |
+| `links` | Optional. External watch links: `{ label, href }[]` (e.g. Watch on X, Watch on Instagram). |
+| `href` / `hrefLabel` | Legacy single watch URL. Prefer `links` when a piece has more than one. |
 | `year` | Optional. |
 
 Sample entries can remain in the file until they are retired.

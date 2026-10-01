@@ -160,6 +160,7 @@ function card(work: Work, heading: "h2" | "h3"): string {
         <${heading}>${esc(work.title)}</${heading}>
         <p class="summary">${esc(work.summary)}</p>
       </a>
+      ${watchLinks(work)}
       ${creditsBlock(work)}
     </article>
   `;
@@ -269,10 +270,20 @@ function metaLine(work: Work): string {
   return `<p class="kind">${bits.join(" · ")}</p>`;
 }
 
-function watchLink(work: Work): string {
-  if (!work.href) return "";
-  const label = work.hrefLabel ?? "Watch on X";
-  return `<p class="watch">${external(work.href, label)}</p>`;
+function watchEntries(work: Work): Array<{ label: string; href: string }> {
+  if (work.links && work.links.length > 0) return work.links;
+  if (work.href) {
+    return [{ href: work.href, label: work.hrefLabel ?? "Watch on X" }];
+  }
+  return [];
+}
+
+function watchLinks(work: Work): string {
+  const entries = watchEntries(work);
+  if (entries.length === 0) return "";
+  return `<ul class="watch">${entries
+    .map((link) => `<li>${external(link.href, link.label)}</li>`)
+    .join("")}</ul>`;
 }
 
 export function workDetailPage(work: Work): { title: string; html: string } {
@@ -284,7 +295,7 @@ export function workDetailPage(work: Work): { title: string; html: string } {
         ${frameBox(work, "frame-lg")}
         ${metaLine(work)}
         <h1>${esc(work.title)}</h1>
-        ${watchLink(work)}
+        ${watchLinks(work)}
         <div class="prose">${paragraphs(work.description)}</div>
         ${creditsBlock(work)}
       </article>

@@ -12,14 +12,22 @@ export const works: Work[] = [
     slug: "bitcoin-tidal-wave",
     title: "Bitcoin is like a tidal wave...",
     kind: "Short",
-    summary: "A square short from Studio Gulch. The cut lives on X.",
+    summary: "A square short from Studio Gulch. Watch on X or Instagram.",
     description:
-      "Studio Gulch’s first published catalogue piece. A roughly fifty-four-second square short posted on X: Bitcoin figured as a tidal wave — force that can lift, and force that can take the ground out from under you.\n\nWatch the full cut on the studio’s X post. The still on this page is from the piece’s design art.",
+      "Studio Gulch’s first published catalogue piece. A roughly fifty-four-second square short: Bitcoin figured as a tidal wave — force that can lift, and force that can take the ground out from under you.\n\nWatch the full cut on X or Instagram. The still on this page is from the piece’s design art.",
     year: "2026",
     sample: false,
     still: "/stills/bitcoin-tidal-wave.jpg",
-    href: "https://x.com/StudioGulch/status/2105777341221794202",
-    hrefLabel: "Watch on X",
+    links: [
+      {
+        label: "Watch on X",
+        href: "https://x.com/StudioGulch/status/2105777341221794202",
+      },
+      {
+        label: "Watch on Instagram",
+        href: "https://www.instagram.com/p/Dd9-oZmtc1Y/",
+      },
+    ],
     credits: [
       { personId: "juan-galt", role: "Director" },
       { personId: "elli-satoshi", role: "Producer" },

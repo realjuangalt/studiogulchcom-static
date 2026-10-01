@@ -42,9 +42,14 @@ export type Work = {
    * Set `16/9` only when a piece truly needs a wide frame.
    */
   aspect?: "1/1" | "16/9";
-  /** External watch URL (for example an X post). Kept out of the static host. */
+  /**
+   * External watch / distribution links (X, Instagram, etc.).
+   * Preferred over the single `href` / `hrefLabel` pair when both exist.
+   */
+  links?: PersonLink[];
+  /** @deprecated Prefer `links`. Single external watch URL. */
   href?: string;
-  /** Link label for `href`. Defaults to "Watch on X". */
+  /** @deprecated Prefer `links`. Label for `href`. Defaults to "Watch on X". */
   hrefLabel?: string;
   credits: Credit[];
 };
