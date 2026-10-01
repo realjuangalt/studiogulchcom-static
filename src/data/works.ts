@@ -17,7 +17,7 @@ export const works: Work[] = [
       "Studio Gulch’s first published catalogue piece. A roughly fifty-four-second square short: Bitcoin figured as a tidal wave — force that can lift, and force that can take the ground out from under you.\n\nWatch the full cut on X or Instagram. The still on this page is from the piece’s design art.",
     year: "2026",
     sample: false,
-    still: "/stills/bitcoin-tidal-wave.jpg",
+    still: "/stills/bitcoin-tidal-wave-design.jpg",
     links: [
       {
         label: "Watch on X",
