@@ -138,14 +138,24 @@ function creditsBlock(work: Work): string {
   `;
 }
 
+function frameBox(work: Work, extraClass = ""): string {
+  const aspect =
+    work.aspect && work.aspect !== "1/1"
+      ? ` data-aspect="${esc(work.aspect)}"`
+      : "";
+  const cls = extraClass ? `frame ${extraClass}` : "frame";
+  return `
+        <div class="${cls}"${aspect}>
+          <div class="frame-art" aria-hidden="true">${visual(work)}</div>
+          ${sampleBadge(work)}
+        </div>`;
+}
+
 function card(work: Work, heading: "h2" | "h3"): string {
   return `
     <article class="card"${work.sample ? ' data-sample="true"' : ""}>
       <a class="card-link" href="${url(`/work/${work.slug}`)}">
-        <div class="frame">
-          <div class="frame-art" aria-hidden="true">${visual(work)}</div>
-          ${sampleBadge(work)}
-        </div>
+        ${frameBox(work)}
         <p class="kind">${esc(work.kind)}</p>
         <${heading}>${esc(work.title)}</${heading}>
         <p class="summary">${esc(work.summary)}</p>
@@ -271,10 +281,7 @@ export function workDetailPage(work: Work): { title: string; html: string } {
     html: `
       <article class="wrap page detail" data-page="work-detail">
         <p class="back"><a href="${url("/work")}">Work</a></p>
-        <div class="frame frame-lg">
-          <div class="frame-art" aria-hidden="true">${visual(work)}</div>
-          ${sampleBadge(work)}
-        </div>
+        ${frameBox(work, "frame-lg")}
         ${metaLine(work)}
         <h1>${esc(work.title)}</h1>
         ${watchLink(work)}

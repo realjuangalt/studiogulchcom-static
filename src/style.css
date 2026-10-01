@@ -293,10 +293,15 @@ main {
 
 .frame {
   position: relative;
-  aspect-ratio: 16 / 9;
+  /* Studio Gulch cuts are 1:1; override with data-aspect when a piece needs another ratio. */
+  aspect-ratio: 1 / 1;
   background: #000;
   border: 1px solid var(--line);
   overflow: hidden;
+}
+
+.frame[data-aspect="16/9"] {
+  aspect-ratio: 16 / 9;
 }
 
 .frame-art,
@@ -309,6 +314,7 @@ main {
 
 .frame-art .still {
   object-fit: cover;
+  object-position: center;
 }
 
 .sample {
@@ -480,6 +486,7 @@ a:hover {
 
 .frame-lg {
   margin-bottom: 0.35rem;
+  max-width: min(100%, 36rem);
 }
 
 .profile-work,

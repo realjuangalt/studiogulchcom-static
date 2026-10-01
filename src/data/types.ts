@@ -37,6 +37,11 @@ export type Work = {
   still?: string;
   /** Drawn frame used when `still` is absent. */
   frame?: "marker" | "switchback";
+  /**
+   * Media frame ratio. Defaults to square (`1/1`) — Studio Gulch cuts are 1:1.
+   * Set `16/9` only when a piece truly needs a wide frame.
+   */
+  aspect?: "1/1" | "16/9";
   /** External watch URL (for example an X post). Kept out of the static host. */
   href?: string;
   /** Link label for `href`. Defaults to "Watch on X". */
