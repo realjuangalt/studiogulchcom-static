@@ -1,13 +1,27 @@
 import type { Credit, Work } from "./types.ts";
 
 /**
- * Pieces in featured order. The home page shows the first three.
+ * Pieces in featured order. Home Recent prefers published entries first
+ * (up to three), then falls back to samples when nothing is published yet.
  *
- * Add a real piece by copying an entry, setting `sample` to false, and
- * pointing each credit at an `id` from people.ts. Delete the sample entries
- * when they are no longer needed.
+ * Add a real piece with `sample: false`. Keep sample entries until they are
+ * retired; they stay visible under Work → All.
  */
 export const works: Work[] = [
+  {
+    slug: "bitcoin-tidal-wave",
+    title: "Bitcoin is like a tidal wave...",
+    kind: "Short",
+    summary: "A square short from Studio Gulch. The cut lives on X.",
+    description:
+      "Studio Gulch’s first published catalogue piece. A roughly fifty-four-second square short posted on X: Bitcoin figured as a tidal wave — force that can lift, and force that can take the ground out from under you.\n\nWatch the full cut on the studio’s X post. The still on this page is a frame from that video.",
+    year: "2026",
+    sample: false,
+    still: "/stills/bitcoin-tidal-wave.jpg",
+    href: "https://x.com/StudioGulch/status/2105777341221794202",
+    hrefLabel: "Watch on X",
+    credits: [{ personId: "juan-galt", role: "Director" }],
+  },
   {
     slug: "mile-marker",
     title: "Mile Marker",
@@ -42,6 +56,13 @@ export const works: Work[] = [
 
 export function workBySlug(slug: string): Work | undefined {
   return works.find((work) => work.slug === slug);
+}
+
+/** Home Recent and similar: published first, then samples if needed. */
+export function featuredWorks(limit = 3): Work[] {
+  const published = works.filter((work) => !work.sample);
+  if (published.length > 0) return published.slice(0, limit);
+  return works.slice(0, limit);
 }
 
 export function creditsForPerson(

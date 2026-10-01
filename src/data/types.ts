@@ -37,6 +37,10 @@ export type Work = {
   still?: string;
   /** Drawn frame used when `still` is absent. */
   frame?: "marker" | "switchback";
+  /** External watch URL (for example an X post). Kept out of the static host. */
+  href?: string;
+  /** Link label for `href`. Defaults to "Watch on X". */
+  hrefLabel?: string;
   credits: Credit[];
 };
 

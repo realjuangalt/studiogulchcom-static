@@ -1,7 +1,7 @@
 import { frameMarkup } from "./frames.ts";
 import { personById, profilePeople } from "./data/people.ts";
 import { liveSocials } from "./data/socials.ts";
-import { creditsForPerson, works } from "./data/works.ts";
+import { creditsForPerson, featuredWorks, works } from "./data/works.ts";
 import type { Credit, Person, Social, Work } from "./data/types.ts";
 import { asset, esc, url } from "./url.ts";
 
@@ -19,7 +19,8 @@ export function matchRoute(pathname: string, search: string): Route {
   if (pathname === "/work") {
     return {
       page: "work",
-      show: params.get("show") === "published" ? "published" : "all",
+      // Default catalogue view is published work; samples stay under ?show=all.
+      show: params.get("show") === "all" ? "all" : "published",
     };
   }
   if (pathname === "/studio") return { page: "studio" };
@@ -159,7 +160,7 @@ function workGrid(list: Work[], heading: "h2" | "h3"): string {
 }
 
 export function homePage(): { title: string; html: string } {
-  const featured = works.slice(0, 3);
+  const featured = featuredWorks(3);
   const published = works.some((work) => !work.sample);
   let recent: string;
   if (featured.length === 0) {
@@ -173,11 +174,12 @@ export function homePage(): { title: string; html: string } {
     const note = published
       ? ""
       : `<p class="deck">Labeled samples. Published work will replace them.</p>`;
+    const workIndexLabel = published ? "Work" : "All work";
     recent = `
       <section class="recent">
         <div class="section-head">
           <h2 class="section-label">Recent</h2>
-          <a class="text-link" href="${url("/work")}">All work</a>
+          <a class="text-link" href="${url("/work")}">${workIndexLabel}</a>
         </div>
         ${note}
         ${workGrid(featured, "h3")}
@@ -223,7 +225,7 @@ export function workIndexPage(show: "all" | "published"): {
     const back =
       works.some((work) => work.sample) && show === "published"
         ? `<p class="deck">Sample pieces stay on All until they are removed from the work list.</p>
-           <p><a class="text-link" href="${url("/work")}">Show samples</a></p>`
+           <p><a class="text-link" href="${url("/work?show=all")}">Show samples</a></p>`
         : "";
     body = `<div class="empty"><p class="empty-title">No published work yet</p>${back}</div>`;
   } else {
@@ -239,8 +241,8 @@ export function workIndexPage(show: "all" | "published"): {
           ${deck}
         </header>
         <nav class="filters" aria-label="Which pieces">
-          <a href="${url("/work")}"${show === "all" ? ' aria-current="true"' : ""}>All</a>
-          <a href="${url("/work?show=published")}"${show === "published" ? ' aria-current="true"' : ""}>Published</a>
+          <a href="${url("/work")}"${show === "published" ? ' aria-current="true"' : ""}>Published</a>
+          <a href="${url("/work?show=all")}"${show === "all" ? ' aria-current="true"' : ""}>All</a>
         </nav>
         ${body}
       </div>
@@ -257,6 +259,12 @@ function metaLine(work: Work): string {
   return `<p class="kind">${bits.join(" · ")}</p>`;
 }
 
+function watchLink(work: Work): string {
+  if (!work.href) return "";
+  const label = work.hrefLabel ?? "Watch on X";
+  return `<p class="watch">${external(work.href, label)}</p>`;
+}
+
 export function workDetailPage(work: Work): { title: string; html: string } {
   return {
     title: `${work.title} — Studio Gulch`,
@@ -269,6 +277,7 @@ export function workDetailPage(work: Work): { title: string; html: string } {
         </div>
         ${metaLine(work)}
         <h1>${esc(work.title)}</h1>
+        ${watchLink(work)}
         <div class="prose">${paragraphs(work.description)}</div>
         ${creditsBlock(work)}
       </article>

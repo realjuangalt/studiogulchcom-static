@@ -449,7 +449,17 @@ a:hover {
 }
 
 .detail h1 {
-  margin: 0.35rem 0 1.15rem;
+  margin: 0.35rem 0 0.65rem;
+}
+
+.watch {
+  margin: 0 0 1.15rem;
+}
+
+.watch a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .prose p {
