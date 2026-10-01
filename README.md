@@ -34,7 +34,7 @@ Routes are real paths (`/work`, `/work/mile-marker`, `/people/juan-galt`, `/stud
 
 ## Add a piece
 
-Edit `src/data/works.ts` and append an object. Order in that array is the order on the work index. The home page shows the first three.
+Edit `src/data/works.ts` and put real pieces first. `/work` defaults to published work; samples stay under `/work?show=all`. Home Recent shows up to three published pieces (falling back to samples only when nothing is published).
 
 | Field | What to put |
 | --- | --- |
@@ -47,9 +47,11 @@ Edit `src/data/works.ts` and append an object. Order in that array is the order 
 | `credits` | `{ personId, role, note? }`. `personId` matches an `id` in `src/data/people.ts`. The role is for this piece only. |
 | `still` | Optional. Put an image in `public/stills/` and set `"/stills/filename.jpg"`. If omitted, a drawn frame is used. |
 | `frame` | Optional placeholder when there is no still: `marker` or `switchback`. |
+| `href` | Optional external watch URL (for example an X post). |
+| `hrefLabel` | Optional label for `href` (defaults to `Watch on X`). |
 | `year` | Optional. |
 
-The two entries already in the file are samples. Delete them when real work replaces them.
+Sample entries can remain in the file until they are retired.
 
 To credit someone with no profile page, add `{ id, name }` to `src/data/people.ts` and leave `slug` unset. To give them a page at `/people/<slug>`, set `slug`, and optionally `studioRole`, `summary`, and `links`.
 
