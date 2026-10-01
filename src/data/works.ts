@@ -14,10 +14,10 @@ export const works: Work[] = [
     kind: "Short",
     summary: "A square short from Studio Gulch. Watch on X or Instagram.",
     description:
-      "Studio Gulch’s second published catalogue piece. A roughly two-minute square short posted on X and Instagram: Not everyone is prepared to pay the Bitcoin Toll of Hormuz.\n\nWatch the full cut on X or Instagram. The still on this page is a frame from the video.",
+      "Studio Gulch’s second published catalogue piece. A roughly two-minute square short posted on X and Instagram: Not everyone is prepared to pay the Bitcoin Toll of Hormuz.\n\nWatch the full cut on X or Instagram. The still on this page is the piece’s Polanco design art.",
     year: "2026",
     sample: false,
-    still: "/stills/bitcoin-toll-of-hormuz.jpg",
+    still: "/stills/bitcoin-toll-of-hormuz-polanco.jpg",
     links: [
       {
         label: "Watch on X",
