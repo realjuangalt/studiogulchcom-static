@@ -112,24 +112,41 @@ function creditName(credit: Credit): string {
   return `<a href="${url(`/people/${person.slug}`)}">${name}</a>`;
 }
 
-function creditsBlock(work: Work): string {
+function creditItems(work: Work): string {
+  if (work.credits.length === 0) {
+    return `<li class="credit-note">No credits listed.</li>`;
+  }
+  return work.credits
+    .map((credit) => {
+      const note = credit.note
+        ? `<span class="credit-note">${esc(credit.note)}</span>`
+        : "";
+      return `<li><span class="credit-name">${creditName(credit)}</span><span class="credit-role">${esc(credit.role)}</span>${note}</li>`;
+    })
+    .join("");
+}
+
+/** Card: collapsed toggle. Detail: always-open list (no click required). */
+function creditsBlock(work: Work, mode: "toggle" | "open" = "toggle"): string {
   const id = `credits-${work.slug}`;
-  const items =
-    work.credits.length > 0
-      ? work.credits
-          .map((credit) => {
-            const note = credit.note
-              ? `<span class="credit-note">${esc(credit.note)}</span>`
-              : "";
-            return `<li><span class="credit-name">${creditName(credit)}</span><span class="credit-role">${esc(credit.role)}</span>${note}</li>`;
-          })
-          .join("")
-      : `<li class="credit-note">No credits listed.</li>`;
+  const items = creditItems(work);
+  const label = `Credits · ${work.credits.length}`;
+
+  if (mode === "open") {
+    return `
+    <div class="credits credits-open">
+      <h2 class="credits-heading">${esc(label)}</h2>
+      <ul id="${id}" class="credits-panel">
+        ${items}
+      </ul>
+    </div>
+  `;
+  }
 
   return `
     <div class="credits">
       <button type="button" class="credits-toggle" aria-expanded="false" aria-controls="${id}" data-credits-toggle>
-        Credits · ${work.credits.length}
+        ${esc(label)}
       </button>
       <ul id="${id}" class="credits-panel" hidden>
         ${items}
@@ -297,7 +314,7 @@ export function workDetailPage(work: Work): { title: string; html: string } {
         <h1>${esc(work.title)}</h1>
         ${watchLinks(work)}
         <div class="prose">${paragraphs(work.description)}</div>
-        ${creditsBlock(work)}
+        ${creditsBlock(work, "open")}
       </article>
     `,
   };

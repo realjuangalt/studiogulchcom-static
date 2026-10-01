@@ -382,7 +382,12 @@ a:hover {
   margin-top: 0.85rem;
 }
 
-.credits-toggle {
+.credits-open {
+  margin-top: 1.75rem;
+}
+
+.credits-toggle,
+.credits-heading {
   appearance: none;
   background: transparent;
   border: 0;
@@ -392,7 +397,18 @@ a:hover {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-size: 0.75rem;
+  font-weight: 400;
+  color: inherit;
+}
+
+.credits-toggle {
   cursor: pointer;
+}
+
+.credits-heading {
+  margin: 0;
+  display: inline-block;
+  border-bottom-color: var(--ink);
 }
 
 .credits-toggle:hover,
