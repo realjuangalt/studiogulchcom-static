@@ -2,7 +2,7 @@ import type { Social } from "./types.ts";
 
 /**
  * Studio accounts. Leave `href` null to keep an account out of the page
- * until it is live — YouTube and Rumble are reserved that way.
+ * until it is live — Rumble is reserved that way.
  */
 export const studioSocials: Social[] = [
   {
@@ -19,7 +19,7 @@ export const studioSocials: Social[] = [
   {
     id: "youtube",
     label: "YouTube",
-    href: null,
+    href: "https://www.youtube.com/@studiogulch",
   },
   {
     id: "rumble",
