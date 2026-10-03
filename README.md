@@ -60,7 +60,7 @@ To credit someone with no profile page, add `{ id, name }` to `src/data/people.t
 - People: `src/data/people.ts`
 - Studio socials: `src/data/socials.ts`
 
-YouTube and Rumble are in the social list with `href: null`. They are not shown. Set `href` when those accounts are live; the footer and the studio page pick up any entry with a URL.
+Rumble is in the social list with `href: null` and is not shown. Set `href` when that account is live; the footer and the studio page pick up any entry with a URL.
 
 ## Type
 
