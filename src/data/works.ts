@@ -56,7 +56,7 @@ export const works: Work[] = [
     ],
     credits: [
       { personId: "juan-galt", role: "Director" },
-      { personId: "elli-satoshi", role: "Producer" },
+      { personId: "c001z0n3", role: "Artist" },
       { personId: "duityors", role: "Editor" },
     ],
   },
