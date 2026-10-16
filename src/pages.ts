@@ -11,6 +11,7 @@ export type Route =
   | { page: "work-detail"; slug: string }
   | { page: "person"; slug: string }
   | { page: "studio" }
+  | { page: "work-with-us" }
   | { page: "not-found" };
 
 export function matchRoute(pathname: string, search: string): Route {
@@ -24,6 +25,7 @@ export function matchRoute(pathname: string, search: string): Route {
     };
   }
   if (pathname === "/studio") return { page: "studio" };
+  if (pathname === "/work-with-us") return { page: "work-with-us" };
   const work = /^\/work\/([a-z0-9-]+)$/.exec(pathname);
   if (work) return { page: "work-detail", slug: work[1] };
   const person = /^\/people\/([a-z0-9-]+)$/.exec(pathname);
@@ -74,6 +76,7 @@ export function shell(route: Route, inner: string): string {
         <nav class="nav" aria-label="Pages">
           <a href="${url("/work")}"${workCurrent ? ' aria-current="page"' : ""}>Work</a>
           <a href="${url("/studio")}"${studioCurrent ? ' aria-current="page"' : ""}>Studio</a>
+          <a href="${url("/work-with-us")}"${route.page === "work-with-us" ? ' aria-current="page"' : ""}>Work with us</a>
         </nav>
       </div>
     </header>
@@ -410,6 +413,49 @@ export function studioPage(): { title: string; html: string } {
           ${peopleList}
         </section>
         ${socialBlock}
+      </div>
+    `,
+  };
+}
+
+/** Placeholder until the dedicated Studio Gulch inbox is set up. */
+const CONTACT_EMAIL = "hello@studiogulch.com";
+
+export function workWithUsPage(): { title: string; html: string } {
+  const mail = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Brand film inquiry")}`;
+  return {
+    title: "Work with us — Studio Gulch",
+    html: `
+      <div class="wrap page" data-page="work-with-us">
+        <header class="page-head">
+          <h1>Work with us</h1>
+          <p class="deck">Short illustrated brand films. Made with machines, cut like film.</p>
+        </header>
+        <div class="prose">
+          <p>We make 30 to 60 second animated stories about brands, events and the people behind them. Ink, pixel and hand-drawn looks, not plastic realism. You bring the story or we find it with you.</p>
+        </div>
+        <section class="studio-block">
+          <h2 class="section-label">Brand film package · $250</h2>
+          <ul class="people">
+            <li>One 30–60s illustrated film<span>Script, look, edit, music and sound</span></li>
+            <li>Three social cutdowns<span>Vertical and square, ready for X, Instagram and YouTube</span></li>
+            <li>One round of revisions<span>Delivered in about two weeks</span></li>
+          </ul>
+        </section>
+        <section class="studio-block">
+          <h2 class="section-label">Payment</h2>
+          <div class="prose">
+            <p>Bitcoin, Lightning or other crypto, or an invoice from Studio Gulch SAS (Colombia). Half to start, half on delivery.</p>
+          </div>
+        </section>
+        <section class="studio-block">
+          <h2 class="section-label">Start</h2>
+          <div class="prose">
+            <p>Tell us who you are and what you want people to feel. We reply within two working days.</p>
+          </div>
+          <p><a class="text-link" href="${esc(mail)}">${esc(CONTACT_EMAIL)}</a></p>
+          <p><a class="text-link" href="${url("/work")}">See the work</a></p>
+        </section>
       </div>
     `,
   };
