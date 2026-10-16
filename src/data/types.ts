@@ -21,11 +21,27 @@ export type Credit = {
   note?: string;
 };
 
+/**
+ * Catalogue type ids. Extend `WORK_KINDS` in `works.ts` when a new kind ships
+ * (e.g. full ads / publicity cuts). Filter chips use these ids in `?type=`.
+ */
+export type WorkKindId = "short-film" | "shorts" | "publicity" | "other";
+
+export type WorkKindDef = {
+  id: WorkKindId;
+  /** Singular label on cards and detail meta. */
+  label: string;
+  /** Plural / chip label in the Work type filter. */
+  filterLabel: string;
+  /** Always list in the type filter, even with zero pieces. */
+  alwaysShow?: boolean;
+};
+
 export type Work = {
   slug: string;
   title: string;
-  /** Short label on the card, such as "AI ad" or "Short". */
-  kind: string;
+  /** Catalogue type — see `WORK_KINDS` / `kindLabel` in `works.ts`. */
+  kind: WorkKindId;
   /** One line under the title. */
   summary: string;
   /** Detail copy. Separate paragraphs with a blank line. */

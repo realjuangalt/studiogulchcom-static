@@ -442,8 +442,28 @@ a:hover {
 
 .filters {
   display: flex;
-  gap: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.25rem;
   margin-top: 1.35rem;
+}
+
+.filters-type {
+  margin-top: 1.35rem;
+  padding-bottom: 0.15rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.filters-show {
+  margin-top: 0.35rem;
+}
+
+.filters-show a {
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.filters-show a[aria-current="true"] {
+  color: var(--ink);
 }
 
 .filters a {

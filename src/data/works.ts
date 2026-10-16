@@ -1,4 +1,57 @@
-import type { Credit, Work } from "./types.ts";
+import type { Credit, Work, WorkKindDef, WorkKindId } from "./types.ts";
+
+/**
+ * Known catalogue types. Short films + shorts always appear in the Work filter;
+ * other kinds (publicity, other cuts) show once they have visible work — or set
+ * `alwaysShow` when a chip should stay listed empty.
+ */
+export const WORK_KINDS: WorkKindDef[] = [
+  {
+    id: "short-film",
+    label: "Short film",
+    filterLabel: "Short films",
+    alwaysShow: true,
+  },
+  {
+    id: "shorts",
+    label: "Shorts",
+    filterLabel: "Shorts",
+    alwaysShow: true,
+  },
+  {
+    id: "publicity",
+    label: "Publicity",
+    filterLabel: "Publicity",
+  },
+  {
+    id: "other",
+    label: "Other",
+    filterLabel: "Other cuts",
+  },
+];
+
+const kindById = new Map(WORK_KINDS.map((kind) => [kind.id, kind]));
+
+export function kindLabel(kind: WorkKindId): string {
+  return kindById.get(kind)?.label ?? kind;
+}
+
+export function kindFilterLabel(kind: WorkKindId): string {
+  return kindById.get(kind)?.filterLabel ?? kind;
+}
+
+export function isWorkKindId(value: string): value is WorkKindId {
+  return kindById.has(value as WorkKindId);
+}
+
+/**
+ * Type chips for the Work index: always-show kinds, plus any kind that has at
+ * least one piece in the current published/all set.
+ */
+export function filterKindsFor(list: Work[]): WorkKindDef[] {
+  const present = new Set(list.map((work) => work.kind));
+  return WORK_KINDS.filter((kind) => kind.alwaysShow || present.has(kind.id));
+}
 
 /**
  * Pieces in featured order. Home Recent prefers published entries first
@@ -6,12 +59,15 @@ import type { Credit, Work } from "./types.ts";
  *
  * Add a real piece with `sample: false`. Keep sample entries until they are
  * retired; they stay visible under Work → All.
+ *
+ * Catalogue types (`kind`): `short-film` (current published pieces), `shorts`
+ * (empty until Juan adds two), then `publicity` / `other` as needed.
  */
 export const works: Work[] = [
   {
     slug: "bitcoin-toll-of-hormuz",
     title: "Not everyone is prepared to pay the Bitcoin Toll of Hormuz...",
-    kind: "Short",
+    kind: "short-film",
     summary: "A square short from Studio Gulch. Watch on X or Instagram.",
     description:
       "Studio Gulch’s second published catalogue piece. A roughly two-minute square short posted on X and Instagram: Not everyone is prepared to pay the Bitcoin Toll of Hormuz.\n\nWatch the full cut on X or Instagram. The still on this page is the piece’s Polanco design art.",
@@ -37,7 +93,7 @@ export const works: Work[] = [
   {
     slug: "bitcoin-tidal-wave",
     title: "Bitcoin is like a tidal wave...",
-    kind: "Short",
+    kind: "short-film",
     summary: "A square short from Studio Gulch. Watch on X or Instagram.",
     description:
       "Studio Gulch’s first published catalogue piece. A roughly fifty-four-second square short: Bitcoin figured as a tidal wave — force that can lift, and force that can take the ground out from under you.\n\nWatch the full cut on X or Instagram. The still on this page is from the piece’s design art.",
@@ -63,7 +119,7 @@ export const works: Work[] = [
   {
     slug: "mile-marker",
     title: "Mile Marker",
-    kind: "AI ad",
+    kind: "publicity",
     summary: "A sample thirty-second ad. An empty highway, no client.",
     description:
       "A sample advertisement, about thirty seconds. The picture rides a two-lane road at dusk until a mile marker holds the frame, and then the weather takes it apart.\n\nPicture and sound are generated. There is no brand behind it. The cut is here so the ad form can be checked before a real spot is added.",
@@ -78,7 +134,7 @@ export const works: Work[] = [
   {
     slug: "after-the-switchback",
     title: "After the Switchback",
-    kind: "Short",
+    kind: "short-film",
     summary: "A sample short. Two voices above a canyon.",
     description:
       "A sample short. Two people pull off after the last switchback, talk above a canyon, and stay until the light is gone.\n\nNo festival and no client. It stands in so a second kind of piece, with different credits, is visible on the site.",

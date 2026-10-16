@@ -34,13 +34,13 @@ Routes are real paths (`/work`, `/work/mile-marker`, `/people/juan-galt`, `/stud
 
 ## Add a piece
 
-Edit `src/data/works.ts` and put real pieces first. `/work` defaults to published work; samples stay under `/work?show=all`. Home Recent shows up to three published pieces (falling back to samples only when nothing is published).
+Edit `src/data/works.ts` and put real pieces first. `/work` defaults to **published** work across **all types**; samples stay under `/work?show=all`. Type chips use `?type=short-film`, `?type=shorts`, etc. Home Recent shows up to three published pieces (falling back to samples only when nothing is published).
 
 | Field | What to put |
 | --- | --- |
 | `slug` | URL segment. `north-window` becomes `/work/north-window`. |
 | `title` | Piece title. |
-| `kind` | Short label, such as `AI ad` or `Short`. |
+| `kind` | Catalogue type id: `short-film`, `shorts`, `publicity`, or `other`. Labels and filter chips live in `WORK_KINDS` in the same file — extend that list for new kinds (e.g. full ads). |
 | `summary` | One line on the card. |
 | `description` | Detail page. Separate paragraphs with a blank line. |
 | `sample` | `false` for real work. `true` shows a Sample label and hides the piece on the Published filter. |
@@ -50,6 +50,33 @@ Edit `src/data/works.ts` and put real pieces first. `/work` defaults to publishe
 | `links` | Optional. External watch links: `{ label, href }[]` (e.g. Watch on X, Watch on Instagram). |
 | `href` / `hrefLabel` | Legacy single watch URL. Prefer `links` when a piece has more than one. |
 | `year` | Optional. |
+
+### Add shorts (when ready)
+
+Insert two entries near the top of `works` (featured order). Do not invent content — wait for titles, stills, and links.
+
+```ts
+{
+  slug: "your-short-slug",
+  title: "…",
+  kind: "shorts",          // required — lands under the Shorts filter
+  summary: "…",
+  description: "…\n\n…",
+  year: "2026",
+  sample: false,
+  still: "/stills/your-short.jpg",  // file in public/stills/
+  links: [
+    { label: "Watch on X", href: "https://…" },
+    { label: "Watch on Instagram", href: "https://…" },
+  ],
+  credits: [
+    { personId: "juan-galt", role: "Director" },
+    // add people in src/data/people.ts first if needed
+  ],
+}
+```
+
+Short films + Shorts chips always show on `/work`, even when Shorts is empty. New kinds: add a row to `WORK_KINDS` (set `alwaysShow: true` if the empty chip should stay visible).
 
 Sample entries can remain in the file until they are retired.
 
