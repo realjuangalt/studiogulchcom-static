@@ -16,13 +16,19 @@ import { locationParts, url } from "./url.ts";
 import "./style.css";
 
 let revealMod: typeof import("./reveal/mount.ts") | null = null;
+let revealImport: Promise<typeof import("./reveal/mount.ts")> | null = null;
+
+function loadReveal(): Promise<typeof import("./reveal/mount.ts")> {
+  revealImport ??= import("./reveal/mount.ts");
+  return revealImport;
+}
 
 async function mountRevealIfHome(isHome: boolean): Promise<void> {
   if (!isHome) {
     revealMod?.unmountHomeReveal();
     return;
   }
-  revealMod = await import("./reveal/mount.ts");
+  revealMod = await loadReveal();
   revealMod.unmountHomeReveal();
   const host = document.querySelector<HTMLElement>(".home-intro-reveal");
   if (host) await revealMod.mountHomeReveal(host);
@@ -66,6 +72,8 @@ function render(scroll: boolean): void {
   }
   const page = view(route);
   document.title = page.title;
+  // Kick the reveal chunk before painting so it overlaps the dark hold frame.
+  if (route.page === "home") void loadReveal();
   app!.innerHTML = shell(route, page.html);
   void mountRevealIfHome(route.page === "home");
 
