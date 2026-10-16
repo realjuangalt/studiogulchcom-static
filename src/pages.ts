@@ -281,6 +281,11 @@ function emptyTypeCopy(type: WorkKindId): { title: string; deck: string } {
         title: "No short films yet",
         deck: "Published short films will show up here.",
       };
+    case "websites":
+      return {
+        title: "No websites yet",
+        deck: "Site work will land here when it is published.",
+      };
     case "publicity":
       return {
         title: "No publicity yet",

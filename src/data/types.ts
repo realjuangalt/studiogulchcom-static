@@ -25,7 +25,12 @@ export type Credit = {
  * Catalogue type ids. Extend `WORK_KINDS` in `works.ts` when a new kind ships
  * (e.g. full ads / publicity cuts). Filter chips use these ids in `?type=`.
  */
-export type WorkKindId = "short-film" | "shorts" | "publicity" | "other";
+export type WorkKindId =
+  | "short-film"
+  | "shorts"
+  | "websites"
+  | "publicity"
+  | "other";
 
 export type WorkKindDef = {
   id: WorkKindId;

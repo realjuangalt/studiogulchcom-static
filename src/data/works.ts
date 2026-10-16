@@ -1,9 +1,9 @@
 import type { Credit, Work, WorkKindDef, WorkKindId } from "./types.ts";
 
 /**
- * Known catalogue types. Short films + shorts always appear in the Work filter;
- * other kinds (publicity, other cuts) show once they have visible work — or set
- * `alwaysShow` when a chip should stay listed empty.
+ * Known catalogue types. Short films, shorts, and websites always appear in the
+ * Work filter; other kinds (publicity, other cuts) show once they have visible
+ * work — or set `alwaysShow` when a chip should stay listed empty.
  */
 export const WORK_KINDS: WorkKindDef[] = [
   {
@@ -16,6 +16,12 @@ export const WORK_KINDS: WorkKindDef[] = [
     id: "shorts",
     label: "Shorts",
     filterLabel: "Shorts",
+    alwaysShow: true,
+  },
+  {
+    id: "websites",
+    label: "Website",
+    filterLabel: "Websites",
     alwaysShow: true,
   },
   {

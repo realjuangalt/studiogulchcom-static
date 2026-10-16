@@ -40,7 +40,7 @@ Edit `src/data/works.ts` and put real pieces first. `/work` defaults to **publis
 | --- | --- |
 | `slug` | URL segment. `north-window` becomes `/work/north-window`. |
 | `title` | Piece title. |
-| `kind` | Catalogue type id: `short-film`, `shorts`, `publicity`, or `other`. Labels and filter chips live in `WORK_KINDS` in the same file — extend that list for new kinds (e.g. full ads). |
+| `kind` | Catalogue type id: `short-film`, `shorts`, `websites`, `publicity`, or `other`. Labels and filter chips live in `WORK_KINDS` in the same file — extend that list for new kinds (e.g. full ads). |
 | `summary` | One line on the card. |
 | `description` | Detail page. Separate paragraphs with a blank line. |
 | `sample` | `false` for real work. `true` shows a Sample label and hides the piece on the Published filter. |
@@ -76,7 +76,7 @@ Insert two entries near the top of `works` (featured order). Do not invent conte
 }
 ```
 
-Short films + Shorts chips always show on `/work`, even when Shorts is empty. New kinds: add a row to `WORK_KINDS` (set `alwaysShow: true` if the empty chip should stay visible).
+Short films, Shorts, and Websites chips always show on `/work`, even when empty. New kinds: add a row to `WORK_KINDS` (set `alwaysShow: true` if the empty chip should stay visible).
 
 Sample entries can remain in the file until they are retired.
 
