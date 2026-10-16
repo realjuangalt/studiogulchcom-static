@@ -9,6 +9,7 @@ import {
   studioPage,
   workDetailPage,
   workIndexPage,
+  workWithUsPage,
   type Route,
 } from "./pages.ts";
 import { locationParts, url } from "./url.ts";
@@ -46,6 +47,8 @@ function view(route: Route): { title: string; html: string } {
     }
     case "studio":
       return studioPage();
+    case "work-with-us":
+      return workWithUsPage();
     default:
       return notFoundPage();
   }
