@@ -1,18 +1,45 @@
 import { frameMarkup } from "./frames.ts";
 import { personById, profilePeople } from "./data/people.ts";
 import { liveSocials } from "./data/socials.ts";
-import { creditsForPerson, featuredWorks, works } from "./data/works.ts";
-import type { Credit, Person, Social, Work } from "./data/types.ts";
+import {
+  creditsForPerson,
+  featuredWorks,
+  filterKindsFor,
+  isWorkKindId,
+  kindFilterLabel,
+  kindLabel,
+  works,
+} from "./data/works.ts";
+import type { Credit, Person, Social, Work, WorkKindId } from "./data/types.ts";
 import { asset, esc, url } from "./url.ts";
+
+export type WorkTypeFilter = "all" | WorkKindId;
 
 export type Route =
   | { page: "home" }
-  | { page: "work"; show: "all" | "published" }
+  | { page: "work"; show: "all" | "published"; type: WorkTypeFilter }
   | { page: "work-detail"; slug: string }
   | { page: "person"; slug: string }
   | { page: "studio" }
   | { page: "work-with-us" }
   | { page: "not-found" };
+
+function parseWorkType(raw: string | null): WorkTypeFilter {
+  if (!raw || raw === "all") return "all";
+  return isWorkKindId(raw) ? raw : "all";
+}
+
+/** Build /work query string. Default view: published + all types. */
+function workIndexHref(
+  show: "all" | "published",
+  type: WorkTypeFilter,
+): string {
+  const params = new URLSearchParams();
+  if (show === "all") params.set("show", "all");
+  if (type !== "all") params.set("type", type);
+  const query = params.toString();
+  return query ? `/work?${query}` : "/work";
+}
 
 export function matchRoute(pathname: string, search: string): Route {
   const params = new URLSearchParams(search);
@@ -22,6 +49,8 @@ export function matchRoute(pathname: string, search: string): Route {
       page: "work",
       // Default catalogue view is published work; samples stay under ?show=all.
       show: params.get("show") === "all" ? "all" : "published",
+      // Default type is All (every kind). Short films / Shorts chips always list.
+      type: parseWorkType(params.get("type")),
     };
   }
   if (pathname === "/studio") return { page: "studio" };
@@ -176,7 +205,7 @@ function card(work: Work, heading: "h2" | "h3"): string {
     <article class="card"${work.sample ? ' data-sample="true"' : ""}>
       <a class="card-link" href="${url(`/work/${work.slug}`)}">
         ${frameBox(work)}
-        <p class="kind">${esc(work.kind)}</p>
+        <p class="kind">${esc(kindLabel(work.kind))}</p>
         <${heading}>${esc(work.title)}</${heading}>
         <p class="summary">${esc(work.summary)}</p>
       </a>
@@ -240,25 +269,83 @@ export function homePage(): { title: string; html: string } {
   };
 }
 
-export function workIndexPage(show: "all" | "published"): {
+function emptyTypeCopy(type: WorkKindId): { title: string; deck: string } {
+  switch (type) {
+    case "shorts":
+      return {
+        title: "No shorts yet",
+        deck: "Short cuts will land here when they are published.",
+      };
+    case "short-film":
+      return {
+        title: "No short films yet",
+        deck: "Published short films will show up here.",
+      };
+    case "publicity":
+      return {
+        title: "No publicity yet",
+        deck: "Ads and publicity cuts will show up here.",
+      };
+    default:
+      return {
+        title: `No ${kindFilterLabel(type).toLowerCase()} yet`,
+        deck: "Pieces of this type will show up here when published.",
+      };
+  }
+}
+
+export function workIndexPage(
+  show: "all" | "published",
+  type: WorkTypeFilter,
+): {
   title: string;
   html: string;
 } {
   const publishedCount = works.filter((work) => !work.sample).length;
-  const visible = show === "published" ? works.filter((work) => !work.sample) : works;
+  const byShow =
+    show === "published" ? works.filter((work) => !work.sample) : works;
+  const typeChips = filterKindsFor(byShow);
+  const visible =
+    type === "all" ? byShow : byShow.filter((work) => work.kind === type);
   const deck =
     show === "all" && publishedCount === 0 && works.length > 0
       ? `<p class="deck">Sample pieces only. Nothing is published yet.</p>`
       : "";
 
+  const typeNav = `
+        <nav class="filters filters-type" aria-label="Type">
+          <a href="${url(workIndexHref(show, "all"))}"${type === "all" ? ' aria-current="true"' : ""}>All</a>
+          ${typeChips
+            .map((kind) => {
+              const current = type === kind.id;
+              return `<a href="${url(workIndexHref(show, kind.id))}"${current ? ' aria-current="true"' : ""}>${esc(kind.filterLabel)}</a>`;
+            })
+            .join("")}
+        </nav>`;
+
+  const showNav = `
+        <nav class="filters filters-show" aria-label="Which pieces">
+          <a href="${url(workIndexHref("published", type))}"${show === "published" ? ' aria-current="true"' : ""}>Published</a>
+          <a href="${url(workIndexHref("all", type))}"${show === "all" ? ' aria-current="true"' : ""}>All pieces</a>
+        </nav>`;
+
   let body: string;
   if (visible.length === 0) {
-    const back =
-      works.some((work) => work.sample) && show === "published"
-        ? `<p class="deck">Sample pieces stay on All until they are removed from the work list.</p>
-           <p><a class="text-link" href="${url("/work?show=all")}">Show samples</a></p>`
-        : "";
-    body = `<div class="empty"><p class="empty-title">No published work yet</p>${back}</div>`;
+    if (type !== "all") {
+      const empty = emptyTypeCopy(type);
+      const back =
+        byShow.length > 0
+          ? `<p><a class="text-link" href="${url(workIndexHref(show, "all"))}">Show all types</a></p>`
+          : "";
+      body = `<div class="empty"><p class="empty-title">${esc(empty.title)}</p><p class="deck">${esc(empty.deck)}</p>${back}</div>`;
+    } else {
+      const back =
+        works.some((work) => work.sample) && show === "published"
+          ? `<p class="deck">Sample pieces stay on All pieces until they are removed from the work list.</p>
+           <p><a class="text-link" href="${url(workIndexHref("all", type))}">Show samples</a></p>`
+          : "";
+      body = `<div class="empty"><p class="empty-title">No published work yet</p>${back}</div>`;
+    }
   } else {
     body = workGrid(visible, "h2");
   }
@@ -271,10 +358,8 @@ export function workIndexPage(show: "all" | "published"): {
           <h1>Work</h1>
           ${deck}
         </header>
-        <nav class="filters" aria-label="Which pieces">
-          <a href="${url("/work")}"${show === "published" ? ' aria-current="true"' : ""}>Published</a>
-          <a href="${url("/work?show=all")}"${show === "all" ? ' aria-current="true"' : ""}>All</a>
-        </nav>
+        ${typeNav}
+        ${showNav}
         ${body}
       </div>
     `,
@@ -282,7 +367,7 @@ export function workIndexPage(show: "all" | "published"): {
 }
 
 function metaLine(work: Work): string {
-  const bits = [esc(work.kind)];
+  const bits = [esc(kindLabel(work.kind))];
   if (work.year) {
     bits.push(`<time datetime="${esc(work.year)}">${esc(work.year)}</time>`);
   }
@@ -336,7 +421,7 @@ export function personPage(person: Person): { title: string; html: string } {
       ? `<p class="deck">No Studio Gulch pieces credit this person yet.</p>`
       : `<ul class="assoc">${rows
           .map(({ work, credit }) => {
-            const meta = [esc(work.kind)];
+            const meta = [esc(kindLabel(work.kind))];
             if (work.sample) meta.push("Sample");
             const note = credit.note
               ? `<span class="assoc-note">${esc(credit.note)}</span>`
@@ -418,7 +503,6 @@ export function studioPage(): { title: string; html: string } {
   };
 }
 
-/** Placeholder until the dedicated Studio Gulch inbox is set up. */
 const CONTACT_EMAIL = "hello@studiogulch.com";
 
 export function workWithUsPage(): { title: string; html: string } {
@@ -445,7 +529,7 @@ export function workWithUsPage(): { title: string; html: string } {
         <section class="studio-block">
           <h2 class="section-label">Payment</h2>
           <div class="prose">
-            <p>Bitcoin, Lightning or other crypto, or an invoice from Studio Gulch SAS (Colombia). Half to start, half on delivery.</p>
+            <p>Bitcoin, Lightning or other crypto, or an invoice from Studio Gulch, S.A.S. de C.V. (El Salvador). Half to start, half on delivery.</p>
           </div>
         </section>
         <section class="studio-block">

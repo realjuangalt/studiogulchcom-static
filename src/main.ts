@@ -36,7 +36,7 @@ function view(route: Route): { title: string; html: string } {
     case "home":
       return homePage();
     case "work":
-      return workIndexPage(route.show);
+      return workIndexPage(route.show, route.type);
     case "work-detail": {
       const work = workBySlug(route.slug);
       return work ? workDetailPage(work) : notFoundPage();
