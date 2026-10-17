@@ -509,6 +509,7 @@ export function studioPage(): { title: string; html: string } {
 }
 
 const CONTACT_EMAIL = "hello@studiogulch.com";
+const WHATSAPP_URL = `https://wa.me/15045051292?text=${encodeURIComponent("Hi Studio Gulch, I'd like a brand film.")}`;
 
 export function workWithUsPage(): { title: string; html: string } {
   const mail = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Brand film inquiry")}`;
@@ -543,6 +544,7 @@ export function workWithUsPage(): { title: string; html: string } {
             <p>Tell us who you are and what you want people to feel. We reply within two working days.</p>
           </div>
           <p><a class="text-link" href="${esc(mail)}">${esc(CONTACT_EMAIL)}</a></p>
+          <p><a class="text-link" href="${esc(WHATSAPP_URL)}" target="_blank" rel="noopener">WhatsApp</a></p>
           <p><a class="text-link" href="${url("/work")}">See the work</a></p>
         </section>
       </div>
