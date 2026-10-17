@@ -542,8 +542,10 @@ export function workWithUsPage(): { title: string; html: string } {
           <div class="prose">
             <p>Tell us who you are and what you want people to feel. We reply within two working days.</p>
           </div>
-          <p><a class="text-link" href="${esc(mail)}">${esc(CONTACT_EMAIL)}</a></p>
-          <p><a class="text-link" href="https://t.me/juangalt?text=Hi%2C%20I%27m%20reaching%20out%20from%20the%20Studio%20Gulch%20website." target="_blank" rel="noopener">Telegram</a></p>
+          <div class="btn-row">
+            <a class="btn" href="${esc(mail)}">Email us</a>
+            <a class="btn" href="https://t.me/juangalt?text=Hi%2C%20I%27m%20reaching%20out%20from%20the%20Studio%20Gulch%20website." target="_blank" rel="noopener">Telegram</a>
+          </div>
           <p><a class="text-link" href="${url("/work")}">See the work</a></p>
         </section>
       </div>
