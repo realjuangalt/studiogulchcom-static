@@ -1,0 +1,22 @@
+*{box-sizing:border-box}body{margin:0;background:#0d0d0f;color:#e8e6e3;font:15px/1.4 system-ui,sans-serif}
+#gate{min-height:100vh;display:grid;place-items:center}#gate form{display:flex;flex-direction:column;gap:12px;width:280px}
+#gate h1{font-weight:500;letter-spacing:.2em;text-transform:uppercase;font-size:14px;color:#888;text-align:center}
+input,button{background:#1a1a1e;color:#eee;border:1px solid #333;border-radius:6px;padding:10px 12px;font:inherit}
+button{cursor:pointer}button:hover{border-color:#666}#err{color:#e66;min-height:1em;margin:0;text-align:center}
+header{position:sticky;top:0;z-index:5;display:flex;gap:12px;align-items:center;padding:12px 20px;background:#0d0d0fee;backdrop-filter:blur(6px);border-bottom:1px solid #222}
+header h1{margin:0;font-size:18px;font-weight:600;flex:0 0 auto}#q{flex:1;max-width:420px}#lock{margin-left:auto}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;padding:20px}
+.card{background:#151518;border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .15s}.card:hover{transform:translateY(-3px)}
+.card .im{aspect-ratio:4/5;background:#1c1c20 center/cover no-repeat}.card .tx{padding:10px 12px}
+.card h2{margin:0 0 4px;font-size:15px}.src{color:#999;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tags{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}.tags span{font-size:11px;background:#232328;color:#aaa;padding:2px 6px;border-radius:4px}
+.cnt{float:right;color:#777;font-size:12px}
+#set .bar{display:flex;gap:16px;align-items:flex-start;padding:16px 20px;border-bottom:1px solid #222}#setinfo h2{margin:0 0 4px}
+#setgrid{columns:280px;column-gap:10px;padding:16px 20px}
+#setgrid .th{break-inside:avoid;margin-bottom:10px;border-radius:6px;overflow:hidden;cursor:zoom-in;background:#1c1c20;min-height:120px;position:relative}
+#setgrid img{width:100%;display:block}#setgrid .play{position:absolute;inset:0;display:grid;place-items:center;font-size:42px;color:#fffc;text-shadow:0 0 12px #000}
+#lb{position:fixed;inset:0;background:#000e;z-index:10;display:flex;align-items:center;justify-content:center}
+#lbc{max-width:92vw;max-height:90vh;display:flex}#lbc img,#lbc video{max-width:92vw;max-height:90vh;object-fit:contain}
+#lb button{position:absolute;background:#0008;border:none;font-size:28px;padding:10px 16px}#lbx{top:10px;right:10px}#lbp{left:10px}#lbn{right:10px}
+#lbi{position:absolute;bottom:10px;left:0;right:0;text-align:center;color:#888;font-size:13px}
+[hidden]{display:none!important}
