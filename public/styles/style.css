@@ -20,3 +20,8 @@ header h1{margin:0;font-size:18px;font-weight:600;flex:0 0 auto}#q{flex:1;max-wi
 #lb button{position:absolute;background:#0008;border:none;font-size:28px;padding:10px 16px}#lbx{top:10px;right:10px}#lbp{left:10px}#lbn{right:10px}
 #lbi{position:absolute;bottom:10px;left:0;right:0;text-align:center;color:#888;font-size:13px}
 [hidden]{display:none!important}
+.card{position:relative}
+.acts{display:flex;gap:4px}.card .acts{position:absolute;top:8px;right:8px;opacity:.55;transition:opacity .15s}
+.card:hover .acts,.card .acts:focus-within{opacity:1}#setinfo .acts{margin-top:8px}
+.ib{display:inline-grid;place-items:center;width:28px;height:28px;padding:0;border-radius:6px;border:1px solid #ffffff22;background:#0d0d0fb3;color:#ddd;backdrop-filter:blur(4px);cursor:pointer;text-decoration:none}
+.ib:hover{border-color:#ffffff66;color:#fff}.ib.ok{color:#7ddc8f;border-color:#7ddc8f88}
